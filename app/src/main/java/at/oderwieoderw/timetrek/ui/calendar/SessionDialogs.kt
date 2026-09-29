@@ -10,11 +10,12 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import at.oderwieoderw.timetrek.R
 import at.oderwieoderw.timetrek.data.local.TimeEntryStore
+import at.oderwieoderw.timetrek.domain.TimeEntries
 import at.oderwieoderw.timetrek.domain.TimeEntry
 import java.text.DateFormat
 import java.util.Calendar
 
-/** Edits only completed sessions; the running session remains controlled by TrackingScreen. */
+/** Adds and edits completed sessions; the running session remains controlled by TrackingScreen. */
 internal class SessionDialogs(
     private val activity: ComponentActivity,
     private val store: TimeEntryStore,
@@ -32,17 +33,41 @@ internal class SessionDialogs(
             .show()
     }
 
+    fun showAdd(selectedDate: Long) {
+        val (dayStart, nextDayStart) = TimeEntries.dayBounds(selectedDate)
+        val start = Calendar.getInstance().apply {
+            timeInMillis = selectedDate
+            set(Calendar.HOUR_OF_DAY, 9)
+            set(Calendar.MINUTE, 0)
+            set(Calendar.SECOND, 0)
+            set(Calendar.MILLISECOND, 0)
+        }
+        val end = Calendar.getInstance().apply { timeInMillis = start.timeInMillis + 60 * 60_000L }
+        val now = System.currentTimeMillis()
+        if (now in dayStart until nextDayStart && end.timeInMillis > now) {
+            end.timeInMillis = now - now % 60_000L
+            start.timeInMillis = maxOf(dayStart, end.timeInMillis - 60 * 60_000L)
+        }
+        showDialog(start, end, R.string.add_session_title, store::addEntry)
+    }
+
     fun showEditor(index: Int, entry: TimeEntry) {
+        showDialog(
+            Calendar.getInstance().apply { timeInMillis = entry.start },
+            Calendar.getInstance().apply { timeInMillis = entry.end },
+            R.string.edit_session_title
+        ) { updated -> store.updateEntry(index, entry, updated) }
+    }
+
+    private fun showDialog(start: Calendar, end: Calendar, title: Int, saveEntry: (TimeEntry) -> Boolean) {
         val view = activity.layoutInflater.inflate(R.layout.dialog_edit_session, null)
-        val start = Calendar.getInstance().apply { timeInMillis = entry.start }
-        val end = Calendar.getInstance().apply { timeInMillis = entry.end }
         setupDateTimePicker(start, view.findViewById(R.id.start_date), view.findViewById(R.id.start_time),
             R.string.edit_start_date, R.string.edit_start_time)
         setupDateTimePicker(end, view.findViewById(R.id.end_date), view.findViewById(R.id.end_time),
             R.string.edit_end_date, R.string.edit_end_time)
         val error = view.findViewById<TextView>(R.id.edit_error)
         val dialog = AlertDialog.Builder(activity)
-            .setTitle(R.string.edit_session_title)
+            .setTitle(title)
             .setView(view)
             .setPositiveButton(R.string.save, null)
             .setNegativeButton(R.string.cancel, null)
@@ -53,7 +78,7 @@ internal class SessionDialogs(
             val message = when {
                 updated.end <= updated.start -> R.string.invalid_session_order
                 updated.end > System.currentTimeMillis() -> R.string.invalid_session_future
-                !store.updateEntry(index, entry, updated) -> R.string.invalid_session_overlap
+                !saveEntry(updated) -> R.string.invalid_session_overlap
                 else -> null
             }
             if (message != null) {

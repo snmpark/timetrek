@@ -54,4 +54,14 @@ class TimeEntriesTest {
         assertFalse(TimeEntries.canReplace(entries, 0, TimeEntry(2_000L, 2_000L)))
         assertFalse(TimeEntries.canReplace(entries, 2, TimeEntry(4_000L, 5_000L)))
     }
+
+    @Test
+    fun addingRequiresPositiveNonOverlappingTimeButAllowsAdjacentSessions() {
+        val entries = listOf(TimeEntry(1_000L, 2_000L), TimeEntry(3_000L, 4_000L))
+        assertTrue(TimeEntries.canAdd(entries, TimeEntry(2_000L, 3_000L)))
+        assertFalse(TimeEntries.canAdd(entries, TimeEntry(1_999L, 3_000L)))
+        assertFalse(TimeEntries.canAdd(entries, TimeEntry(2_000L, 3_001L)))
+        assertFalse(TimeEntries.canAdd(entries, TimeEntry(2_000L, 2_000L)))
+        assertFalse(TimeEntries.canAdd(entries, TimeEntry(-1L, 500L)))
+    }
 }

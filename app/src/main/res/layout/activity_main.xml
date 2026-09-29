@@ -234,14 +234,29 @@
                 android:textColor="@color/accent"
                 android:textSize="18sp" />
 
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/sessions_heading"
-                android:textColor="@color/ink"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sessions_heading"
+                    android:textColor="@color/ink"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/add_session"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:text="@string/add_session"
+                    android:textAllCaps="false" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/session_list"

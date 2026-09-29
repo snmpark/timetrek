@@ -71,6 +71,15 @@ class TimeEntryStore(context: Context) {
         return saveEntries(updated)
     }
 
+    fun addEntry(entry: TimeEntry): Boolean {
+        val saved = entries()
+        val active = activeStart
+        if (!TimeEntries.canAdd(saved, entry) || entry.end > System.currentTimeMillis() ||
+            (active != null && entry.end > active)
+        ) return false
+        return saveEntries(saved + entry)
+    }
+
     fun deleteEntry(index: Int, original: TimeEntry): Boolean {
         val saved = entries()
         if (saved.getOrNull(index) != original) return false

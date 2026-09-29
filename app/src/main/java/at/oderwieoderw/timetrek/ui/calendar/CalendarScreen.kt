@@ -48,6 +48,7 @@ class CalendarScreen(
     init {
         activity.findViewById<Button>(R.id.previous_month).setOnClickListener { changeMonth(-1) }
         activity.findViewById<Button>(R.id.next_month).setOnClickListener { changeMonth(1) }
+        activity.findViewById<Button>(R.id.add_session).setOnClickListener { dialogs.showAdd(selectedDate) }
     }
 
     fun render(now: Long, savedEntries: List<TimeEntry>, active: Long?) {

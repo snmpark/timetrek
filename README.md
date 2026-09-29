@@ -9,7 +9,7 @@ TimeTrek is an Android app for tracking work time and seeing how much of a weekl
 - **Track:** Start or finish a session with one large button. An active session keeps accruing time while the app is closed; its start timestamp is saved and elapsed time is calculated when you return.
 - **Weekly goal:** Set the hours and minutes you need to work. The remaining-time display updates while tracking and shows **Done!** once the goal is met. The goal stays set; the tracked weekly total starts fresh each week.
 - **Progress messages:** The goal card picks a message based on how much time remains, with playful reminders to take a break when you go into overtime.
-- **Calendar:** Dots mark days with tracked time. Select a date to see its total and sessions; completed sessions can be edited or deleted.
+- **Calendar:** Dots mark days with tracked time. Select a date to see its total and sessions; add worktime manually or edit and delete completed sessions.
 
 Sessions that cross midnight or a week boundary contribute only their overlapping time to each day or week. Weeks follow the device's local calendar settings. Sessions and the weekly goal are saved on the device using Android `SharedPreferences` (and may be included in Android backup, depending on device settings).
 

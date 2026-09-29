@@ -46,4 +46,8 @@ object TimeEntries {
             otherIndex != index && overlap(replacement, entry.start, entry.end) > 0L
         }
     }
+
+    fun canAdd(entries: List<TimeEntry>, entry: TimeEntry): Boolean =
+        entry.start >= 0 && entry.end > entry.start &&
+            entries.none { overlap(entry, it.start, it.end) > 0L }
 }

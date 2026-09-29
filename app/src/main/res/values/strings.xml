@@ -42,6 +42,8 @@
     <string name="no_sessions">No time tracked on this day yet.</string>
     <string name="in_progress">%1$s – now · In progress</string>
     <string name="session_range">%1$s – %2$s · %3$s</string>
+    <string name="add_session">Add worktime</string>
+    <string name="add_session_title">Add worktime</string>
     <string name="edit_session">Edit</string>
     <string name="delete_session">Delete</string>
     <string name="edit_session_title">Edit session</string>
