@@ -1,3 +1,97 @@
 <resources>
-    <string name="app_name">timetrek</string>
+    <string name="app_name">TimeTrek</string>
+    <string name="tagline">A clear view of where your time goes.</string>
+    <string name="ready_to_track">Ready when you are</string>
+    <string name="tracking_now">Tracking now</string>
+    <string name="elapsed_time">Current session elapsed time</string>
+    <string name="today_label">TODAY’S TOTAL</string>
+    <string name="weekly_goal_heading">Weekly work goal</string>
+    <string name="set_goal">Set goal</string>
+    <string name="edit_goal">Edit goal</string>
+    <string name="set_goal_prompt">Set your weekly hours to see what’s left.</string>
+    <string name="weekly_progress_prompt">The weekly total resets each week; your sessions stay saved.</string>
+    <string name="remaining_this_week">Remaining this week</string>
+    <string name="weekly_goal_reached">Weekly goal reached!</string>
+    <string name="weekly_goal_done">Done!</string>
+    <string name="weekly_overtime_label">Overtime — time for a break</string>
+    <string name="weekly_progress">%1$s of %2$s tracked this week</string>
+    <string name="weekly_overtime">%1$s over your goal</string>
+    <string name="weekly_goal_dialog_title">Weekly work hours needed</string>
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="invalid_weekly_goal">Enter between 1 minute and 168 hours.</string>
+    <string name="invalid_minutes">Minutes must be between 0 and 59.</string>
+    <string name="calendar_heading">Your calendar</string>
+    <string name="calendar_hint">Dots mark days with tracked time. Tap a date to review.</string>
+    <string name="sessions_heading">Sessions on this day</string>
+    <string name="track_tab">Track</string>
+    <string name="track_live_tab">Track · Live</string>
+    <string name="calendar_tab">Calendar</string>
+    <string name="previous_month">Previous month</string>
+    <string name="next_month">Next month</string>
+    <string name="tracked_day">%1$s, tracked time</string>
+    <string name="selected_day">%1$s, selected</string>
+    <string name="start_working">Start working</string>
+    <string name="finish_work">Finish work</string>
+    <string name="start_hint">A little progress starts here.</string>
+    <string name="finish_hint">Tracking now · finish whenever you’re ready.</string>
+    <string name="session_complete">✓ Nice work — %1$s logged!</string>
+    <string name="day_total">%1$s tracked</string>
+    <string name="no_sessions">No time tracked on this day yet.</string>
+    <string name="in_progress">%1$s – now · In progress</string>
+    <string name="session_range">%1$s – %2$s · %3$s</string>
+    <string name="edit_session">Edit</string>
+    <string name="delete_session">Delete</string>
+    <string name="edit_session_title">Edit session</string>
+    <string name="delete_session_title">Delete session?</string>
+    <string name="delete_session_message">This session will be removed from your tracked time. This can’t be undone.</string>
+    <string name="session_start">START</string>
+    <string name="session_end">END</string>
+    <string name="edit_start_date">Change start date</string>
+    <string name="edit_start_time">Change start time</string>
+    <string name="edit_end_date">Change end date</string>
+    <string name="edit_end_time">Change end time</string>
+    <string name="invalid_session_order">End must be after start.</string>
+    <string name="invalid_session_future">A completed session can’t end in the future.</string>
+    <string name="invalid_session_overlap">This time overlaps another session, or the active timer. Check the dates and times.</string>
+    <string name="session_change_failed">Couldn’t save the change. Please try again.</string>
+    <string name="edit_session_description">Edit session starting %1$s</string>
+    <string name="delete_session_description">Delete session starting %1$s</string>
+
+    <string-array name="motivation_no_goal">
+        <item>Set a weekly goal and give your progress a destination.</item>
+        <item>Choose a pace that works for you, then take the first step.</item>
+        <item>A clear goal makes it easier to see how far you have come.</item>
+    </string-array>
+    <string-array name="motivation_getting_started">
+        <item>Plenty of time left. One good session is a great start.</item>
+        <item>Start small and find your rhythm. The hours will add up.</item>
+        <item>No rush yet. Make the next session count.</item>
+    </string-array>
+    <string-array name="motivation_on_track">
+        <item>You are making headway. Keep a pace you can sustain.</item>
+        <item>Steady progress is real progress. Keep going.</item>
+        <item>Each session brings your weekly goal a little closer.</item>
+    </string-array>
+    <string-array name="motivation_nearly_there">
+        <item>Almost there. Finish steady, then enjoy your time off.</item>
+        <item>Just a little left. You have earned a proper break soon.</item>
+        <item>The finish line is close. Keep it balanced.</item>
+    </string-array>
+    <string-array name="motivation_goal_met">
+        <item>Goal met! You did it. Time to recharge.</item>
+        <item>Your weekly hours are in the bag. Take a breath.</item>
+        <item>Nice work. You have reached your goal.</item>
+    </string-array>
+    <string-array name="motivation_overtime">
+        <item>What are you doing? Touch some grass!</item>
+        <item>Overtime alert. Your couch misses you.</item>
+        <item>You passed your goal. Close the laptop and go enjoy life.</item>
+        <item>Your weekly goal called. It said to take a break.</item>
+        <item>Touch some grass my friend!</item>
+        <item>Get on your bike, the one out front</item>
+        <item>Bomb has been planted.</item>
+    </string-array>
 </resources>
