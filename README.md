@@ -24,21 +24,32 @@ Open the project in Android Studio with the Android SDK installed. The app suppo
 
 The debug APK is written to `app/build/outputs/apk/debug/app-debug.apk`. A debug APK is intended for development, **not** for publishing as a release.
 
-## Publish a GitHub APK release
+## Version updates and GitHub releases
 
-This project does not yet have automated release signing or a GitHub Actions release workflow. To publish a release manually:
+Releases are currently made manually; this repository has no automated signing or GitHub Actions release workflow.
 
-1. Increase `versionCode` and update `versionName` in `app/build.gradle.kts`.
-2. In Android Studio, choose **Build → Generate Signed App Bundle / APK → APK**, then build the **release** variant. On your first release, use **Create new** to make a signing keystore (`.jks`). Keep the keystore and its passwords outside this repository and make a secure backup. Use the **same signing key** for future updates.
-3. Check the signed APK at the output location shown by Android Studio. Push the release's source changes to GitHub, then create a tag (for example, `v1.0`) under **Releases → Draft a new release** and attach the signed APK.
+1. **Bump the version.** In `app/build.gradle.kts`, increase `versionCode` for every new APK and set a matching, human-readable `versionName`. For example, after releasing `1.0` with code `1`:
 
-Alternatively, after pushing the code, publish the signed APK with GitHub CLI:
+   ```kotlin
+   versionCode = 2
+   versionName = "1.1"
+   ```
 
-```sh
-gh release create v1.0 "/path/to/signed.apk#TimeTrek-v1.0.apk" --generate-notes
-```
+   Keep `applicationId` unchanged so the new APK can update existing installs. `versionCode` must be higher than the installed version's code.
 
-Do not upload a keystore or passwords to GitHub. Running `./gradlew assembleRelease` without a release signing configuration is **not** a substitute for generating a signed APK.
+2. **Build and test.** Run `./gradlew testDebugUnitTest assembleDebug`, then in Android Studio choose **Build → Generate Signed App Bundle / APK → APK** and select the **release** variant. For the first release, choose **Create new** to make a `.jks` keystore. For every later release, choose **the same existing keystore and key alias**. Back up the keystore and passwords securely outside the repository; losing the key prevents users from installing future updates over their existing app.
+
+3. **Verify the signed APK.** Use the output path shown by Android Studio (often `app/release/app-release.apk`). Confirm the APK was rebuilt after the version change. Install it over a previous release on a device to check that it upgrades successfully and retains tracked sessions and the weekly goal. Do not use a debug APK or an unsigned release APK.
+
+4. **Publish on GitHub.** Commit and push the source changes. On the repository's **Releases** page, select **Draft a new release**, create a new tag matching `versionName` (for example, `v1.1`) on that commit, upload the signed APK, add release notes, and publish. Attach the APK as a **release asset** rather than committing it to Git.
+
+   If you use GitHub CLI instead, run this after pushing the version change, replacing the path with your signed APK's actual location:
+
+   ```sh
+   gh release create v1.1 "app/release/app-release.apk#TimeTrek-v1.1.apk" --title "TimeTrek 1.1" --generate-notes
+   ```
+
+Never upload the keystore or passwords to GitHub. Running `./gradlew assembleRelease` without a release signing configuration is **not** a substitute for generating a signed APK.
 
 ## Code layout
 
